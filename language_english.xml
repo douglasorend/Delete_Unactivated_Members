@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+<id>Dougiefresh:DUM</id>
+<name>Delete Unactivated Members</name>
+<version>1.0</version>
+
+<file name="$languagedir/Login.english.php">
+	<operation>
+		<search position="end" />
+		<add><![CDATA[
+$txt['DUMD_days'] = 'Days before unactivated accounts are deleted:<div class="smalltext">NOTE: Use <strong>0</strong> to disable.</div>';
+]]></add>
+	</operation>
+</file>
+<file name="$languagedir/ManageScheduledTasks.english.php">
+	<operation>
+		<search position="end" />
+		<add><![CDATA[
+$txt['scheduled_task_delete_unactivated'] = 'Delete Unactivated Members';
+$txt['scheduled_task_desc_delete_unactivated'] = !empty($modSettings['DUMD_days']) ? 'Deletes unactivated members who registered more than ' . $modSettings['DUMD_days']  . ' days ago.' : '<strong>NOTE:</strong> <a href="' . $boardurl . '?action=admin;area=regcenter;sa=settings">Task disabled.  Go here to set number of days.</a>';
+]]></add>
+	</operation>
+</file>
+</modification>

@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+<id>Dougiefresh:DUM</id>
+<name>Delete Unactivated Members</name>
+<version>1.0</version>
+
+<file name="$sourcedir/ManageRegistration.php">
+	<operation>
+		<search position="before"><![CDATA[array('text', 'coppaPhone'),]]></search>
+		<add><![CDATA[
+		'',
+			array('int', 'DUMD_days'),]]></add>
+	</operation>
+</file>
+<file name="$sourcedir/ScheduledTasks.php">
+	<operation>
+		<search position="end" />
+		<add><![CDATA[
+// Function that removes unactivated members who registered past the number of days set by admin:
+function scheduled_delete_unactivated()
+{
+	global $smcFunc, $modSettings;
+
+	// Delete any unactivated members who registered past the number of days set by admin:
+	if (!empty($modSettings['DUMD_days']))
+	{
+		$smcFunc['db_query']('', '
+			DELETE FROM {db_prefix}members
+			WHERE date_registered < {int:date_registered}
+				AND is_activated = {int:not_activated}',
+			array(
+				'date_registered' => time() - ($modSettings['DUMD_days'] * 86400),
+				'not_activated' => 0,
+			)
+		);
+	}
+	return true;
+}
+]]></add>
+	</operation>
+</file>
+</modification>
