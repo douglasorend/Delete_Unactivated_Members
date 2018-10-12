@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE modification SYSTEM "http://www.simplemachines.org/xml/modification">
+<modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
+<id>Dougiefresh:DUM</id>
+<name>Delete Unactivated Members</name>
+<version>1.2</version>
+
+<file name="$languagedir/Login.spanish_latin-utf8.php" error="skip">
+	<operation>
+		<search position="end" />
+		<add><![CDATA[
+$txt['DUMD_days'] = 'Días antes de que se eliminen las cuentas no activadas:<div class="smalltext">NOTA: Use <strong>0</strong> para deshabilitar.</div>';
+$txt['DUMD_notify'] = '&iquest;Notificar a los usuarios cuyas cuentas se están eliminando?';
+]]></add>
+	</operation>
+</file>
+<file name="$languagedir/ManageScheduledTasks.spanish_latin-utf8.php" error="skip">
+	<operation>
+		<search position="end" />
+		<add><![CDATA[
+$txt['scheduled_task_delete_unactivated'] = 'Eliminar miembros no activados';
+$txt['scheduled_task_desc_delete_unactivated'] = !empty($modSettings['DUMD_days']) ? 'Elimina a los miembros no activados que se registraron hace más de ' . $modSettings['DUMD_days']  . ' días.' : '<strong>NOTA:</strong> <a href="' . $boardurl . '?action=admin;area=regcenter;sa=settings">Tarea deshabilitada. Click aquí para establecer el número de días.</a>';
+]]></add>
+	</operation>
+</file>
+
+<file name="$languagedir/Login.spanish_latin.php" error="skip">
+	<operation>
+		<search position="end" />
+		<add><![CDATA[
+$txt['DUMD_days'] = 'D&iacute;as antes de que se eliminen las cuentas no activadas:<div class="smalltext">NOTA: Use <strong>0</strong> para deshabilitar.</div>';
+$txt['DUMD_notify'] = '&iquest;Notificar a los usuarios cuyas cuentas se est&aacute;n eliminando?';
+]]></add>
+	</operation>
+</file>
+<file name="$languagedir/ManageScheduledTasks.spanish_latin.php" error="skip">
+	<operation>
+		<search position="end" />
+		<add><![CDATA[
+$txt['scheduled_task_delete_unactivated'] = 'Eliminar miembros no activados';
+$txt['scheduled_task_desc_delete_unactivated'] = !empty($modSettings['DUMD_days']) ? 'Elimina a los miembros no activados que se registraron hace m&aacute;s de ' . $modSettings['DUMD_days']  . ' d&iacute;as.' : '<strong>NOTA:</strong> <a href="' . $boardurl . '?action=admin;area=regcenter;sa=settings">Tarea deshabilitada. Click aqu&iacute; para establecer el número de d&iacute;as.</a>';
+]]></add>
+	</operation>
+</file>
+</modification>
