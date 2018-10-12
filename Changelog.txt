@@ -1,3 +1,7 @@
+v1.5 - October 11th, 2018
+o No functionality change.
+o Updated documentation to point to new website.
+
 v1.4 - November 30th, 2017
 o Fixed language files so that missing string comes up on configuration pages.
 
