@@ -3,14 +3,14 @@
 <modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
 <id>Dougiefresh:DUM</id>
 <name>Delete Unactivated Members</name>
-<version>1.2</version>
+<version>1.4</version>
 
-<file name="$languagedir/Login.spanish_latin-utf8.php" error="skip">
+<file name="$languagedir/Admin.spanish_latin-utf8.php" error="skip">
 	<operation>
 		<search position="end" />
 		<add><![CDATA[
 $txt['DUMD_days'] = 'Días antes de que se eliminen las cuentas no activadas:<div class="smalltext">NOTA: Use <strong>0</strong> para deshabilitar.</div>';
-$txt['DUMD_notify'] = '&iquest;Notificar a los usuarios cuyas cuentas se están eliminando?';
+$txt['DUMD_notify_users'] = '&iquest;Notificar a los usuarios cuyas cuentas se están eliminando?';
 ]]></add>
 	</operation>
 </file>
@@ -24,12 +24,12 @@ $txt['scheduled_task_desc_delete_unactivated'] = !empty($modSettings['DUMD_days'
 	</operation>
 </file>
 
-<file name="$languagedir/Login.spanish_latin.php" error="skip">
+<file name="$languagedir/Admin.spanish_latin.php" error="skip">
 	<operation>
 		<search position="end" />
 		<add><![CDATA[
 $txt['DUMD_days'] = 'D&iacute;as antes de que se eliminen las cuentas no activadas:<div class="smalltext">NOTA: Use <strong>0</strong> para deshabilitar.</div>';
-$txt['DUMD_notify'] = '&iquest;Notificar a los usuarios cuyas cuentas se est&aacute;n eliminando?';
+$txt['DUMD_notify_users'] = '&iquest;Notificar a los usuarios cuyas cuentas se est&aacute;n eliminando?';
 ]]></add>
 	</operation>
 </file>

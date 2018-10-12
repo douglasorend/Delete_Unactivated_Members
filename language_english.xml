@@ -3,14 +3,14 @@
 <modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
 <id>Dougiefresh:DUM</id>
 <name>Delete Unactivated Members</name>
-<version>1.3</version>
+<version>1.4</version>
 
-<file name="$languagedir/Login.english.php">
+<file name="$languagedir/Admin.english.php">
 	<operation>
 		<search position="end" />
 		<add><![CDATA[
 $txt['DUMD_days'] = 'Days before unactivated accounts are deleted:<div class="smalltext">NOTE: Use <strong>0</strong> to disable.</div>';
-$txt['DUMD_notify'] = 'Notify users whose accounts are being deleted?';
+$txt['DUMD_notify_users'] = 'Notify users whose accounts are being deleted?';
 ]]></add>
 	</operation>
 </file>

@@ -1,3 +1,6 @@
+v1.4 - November 30th, 2017
+o Fixed language files so that missing string comes up on configuration pages.
+
 v1.3 - November 26th, 2017
 o Added Spanish Latin translation, courtsey of [url=https://www.simplemachines.org/community/index.php?action=profile;u=322597]Rock Lee[/url]!
 
