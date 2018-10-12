@@ -3,14 +3,15 @@
 <modification xmlns="http://www.simplemachines.org/xml/modification" xmlns:smf="http://www.simplemachines.org/">
 <id>Dougiefresh:DUM</id>
 <name>Delete Unactivated Members</name>
-<version>1.1</version>
+<version>1.2</version>
 
 <file name="$sourcedir/ManageRegistration.php">
 	<operation>
 		<search position="before"><![CDATA[array('text', 'coppaPhone'),]]></search>
 		<add><![CDATA[
 		'',
-			array('int', 'DUMD_days'),]]></add>
+			array('int', 'DUMD_days'),
+			array('check', 'DUMD_notify_users'),]]></add>
 	</operation>
 </file>
 <file name="$sourcedir/ScheduledTasks.php">
@@ -20,13 +21,23 @@
 // Function that removes unactivated members who registered past the number of days set by admin:
 function scheduled_delete_unactivated()
 {
-	global $smcFunc, $modSettings;
+	global $smcFunc, $modSettings, $sourcedir, $txt;
 
-	// Delete any unactivated members who registered past the number of days set by admin:
-	if (!empty($modSettings['DUMD_days']))
+	// If the number of days equals 0, then return to caller as completed:
+	if (empty($modSettings['DUMD_days']))
+		return true;
+
+	// Geez, Rick!  Are we supposed to notify users we're deleting?
+	if (!empty($modSettings['DUMD_notify_users']))
 	{
-		$smcFunc['db_query']('', '
-			DELETE FROM {db_prefix}members
+		// Need these in order to load the language files & send emails.
+		loadEssentialThemeData();
+		require_once($sourcedir . '/Subs-Post.php');
+
+		// So who are the lucky ones?
+		$result = $smcFunc['db_query']('', '
+			SELECT id_member, real_name, lngfile, email_address
+			FROM {db_prefix}members
 			WHERE date_registered < {int:date_registered}
 				AND is_activated = {int:not_activated}',
 			array(
@@ -34,7 +45,56 @@ function scheduled_delete_unactivated()
 				'not_activated' => 0,
 			)
 		);
+
+		// Group them buggers by languages:
+		$members = array();
+		while ($row = $smcFunc['db_fetch_assoc']($result))
+		{
+			if (!isset($members[$row['lngfile']]))
+				$members[$row['lngfile']] = array();
+			$members[$row['lngfile']][$row['id_member']] = array(
+				'name' => $row['real_name'],
+				'email' => $row['email_address']
+			);
+		}
+		$smcFunc['db_free_result']($result);
+
+		// Send out the deletion messages!
+		foreach ($members as $lang => $members)
+		{
+			// We need to do some shuffling to make this work properly.
+			loadLanguage('EmailTemplates', $lang);
+			$txt['emails']['happy_birthday'] = $birthdayEmails[$greeting];
+
+			foreach ($members as $member)
+			{
+				$replacements = array(
+					'REALNAME' => $member['name'],
+				);
+				$emaildata = loadEmailTemplate('admin_approve_delete', $replacements, $member['language']);
+				sendmail($member['email'], $emaildata['subject'], $emaildata['body'], null, null, false, 4);
+
+				// Try to stop a timeout, this would be bad...
+				@set_time_limit(300);
+				if (function_exists('apache_reset_timeout'))
+					@apache_reset_timeout();
+			}
+		}
+
+		// Flush the toilet, just in case.
+		AddMailQueue(true);
 	}
+
+	// Delete any unactivated members who registered past the number of days set by admin:
+	$smcFunc['db_query']('', '
+		DELETE FROM {db_prefix}members
+		WHERE date_registered < {int:date_registered}
+			AND is_activated = {int:not_activated}',
+		array(
+			'date_registered' => time() - ($modSettings['DUMD_days'] * 86400),
+			'not_activated' => 0,
+		)
+	);
 	return true;
 }
 ]]></add>

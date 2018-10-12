@@ -5,13 +5,14 @@
 [hr]
 
 [color=blue][b][size=12pt][u]Introduction[/u][/size][/b][/color]
-One day, I looked at my forum and saw that 9,870 out of 14,776 were unactivated, most of them over 1 year old.  This irritated me, so I wrote this mod to automatically remove members who haven't activated their account after a specified number of days.
+One day, I looked at my forum and saw that 9,870 out of 14,776 were unactivated, most of them over 1 year old.  This irritated me, so I wrote this mod to automatically remove members who haven't activated their account after a specified number of days.  There is also an option to email users that their membership has been deleted due to lack of activation of the membership.
 
-Please note that this mod does not set the number of days setting.  You must do this in order for this mod to function.  I recommend 30 days, however, you can set it to whatever you want.
+Please note that this mod does not set the number of days setting initially.  You must do this in order for this mod to function.  I recommend 30 days, however, you can set it to whatever you want.
 
 [color=blue][b][size=12pt][u]Admin Settings[/u][/size][/b][/color]
-In [b]Admin[/b] => [b]Members[/b] => [b]Registration[/b] => [b]Settings[/b], there is a new setting:
+In [b]Admin[/b] => [b]Members[/b] => [b]Registration[/b] => [b]Settings[/b], there are 2 new settings:
 o [b]Days before unactivated accounts are deleted[/b]
+o [b]Notify users whose accounts are being deleted?[/b]
 
 [color=blue][b][size=12pt][u]Compatibility Notes[/u][/size][/b][/color]
 This mod was tested on SMF 2.0.14 and SMF 2.1 Beta 3, but should work on SMF 2.0 and up.  SMF 1.x is not and will not be supported.
