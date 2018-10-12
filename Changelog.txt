@@ -1,2 +1,5 @@
+v1.1 - November 23th, 2017
+o Added support for SMF 2.0 Beta 3.
+
 v1.0 - November 18th, 2017
 o Initial release to the public
